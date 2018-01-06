@@ -9,14 +9,6 @@
 import numpy.matlib
 import numpy as np
 
-def read_csv(filename): #Read csv file
-    with open(filename) as f:
-        data = f.read()
-    data = data.split('\n')
-    data = data[1:-1]
-    data.reverse()
-    return data
-
 def column(matrix, i): %extracts column from a matrix
     return [row[i] for row in matrix]
 
