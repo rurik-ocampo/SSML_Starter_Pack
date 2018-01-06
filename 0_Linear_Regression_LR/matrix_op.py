@@ -23,11 +23,11 @@ def full_col_rank(matrix): %checks and eliminates any dependant columns.
             for element in mat_i[j,:]:
                 if ref_j - element <= 0.01:
                     sum_j = sum_j +1
-            if sum_j == matrix.shape[1]:
+            if sum_j == len(matrix[0,:]):
                 index_dep.append(i)
     if index_dep:
         mod_mat_index = 0
-        mod_mat = np.zeros((len(matrix[:,0]),len(matrix[0,:])-len(index_dep)[0]))
+        mod_mat = np.zeros((len(matrix[:,0]),len(matrix[0,:])-len(index_dep[:])))
         for i in range(len(matrix[0,:])):
             if i not in index_dep:
                 for j in range(len(matrix[:,0])):
@@ -35,4 +35,20 @@ def full_col_rank(matrix): %checks and eliminates any dependant columns.
                 mod_mat_index = mod_mat_index + 1 
     else:
         mod_mat = matrix
+    return mod_mat
+
+def mod_input_mult(degree, columns, matrix):
+    current_len = len(matrix[0,:])
+    mod_mat = np.zeros((len(matrix[:,0]),len(matrix[0,:])+len(columns[:])))
+    for i in range(len(matrix[0,:])):
+        for j in range(len(matrix[:,0])):
+            mod_mat[j,i] = matrix[j,i]
+    for col in columns:
+        index = 1
+        for j in range(len(matrix[:,0])):
+            mod_mat[j,index+len(matrix[0,:])] = matrix[j,col]
+            if degree > 1:
+                for deg in range(degree):
+                    mod_mat[j,index+len(matrix[0,:])] = mod_mat[j,index+len(matrix[0,:])]*matrix[j,col]
+        index = index + 1
     return mod_mat
