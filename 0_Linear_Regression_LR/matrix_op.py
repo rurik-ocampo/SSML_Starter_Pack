@@ -12,7 +12,8 @@ import numpy as np
 def column(matrix, i): %extracts column from a matrix
     return [row[i] for row in matrix]
 
-def full_col_rank(matrix): %checks and eliminates any dependant columns.
+% Checks and eliminates any dependant columns.
+def full_col_rank(matrix): 
     index_dep = [] %List to store dependent column indices
     for i in range(len(matrix[0,:])):
         col_i = column(matrix, i) 
@@ -37,6 +38,7 @@ def full_col_rank(matrix): %checks and eliminates any dependant columns.
         mod_mat = matrix
     return mod_mat
 
+% Adds columns in the matrix that are associated with X^degree
 def mod_input_mult(degree, columns, matrix):
     current_len = len(matrix[0,:])
     mod_mat = np.zeros((len(matrix[:,0]),len(matrix[0,:])+len(columns[:])))
